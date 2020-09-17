@@ -1,4 +1,10 @@
-find_package(OpenCV)
+#set(OpenCV_DIR /data/opencv342/share/OpenCV)
+find_package(OpenCV REQUIRED)
+if(NOT OpenCV_FOUND)
+message(FATAL "opencv not found")
+else()
+message("found opencv libs: ${OpenCV_LIBS}")
+endif()
 
 include_directories(${OPENCV_INCLUDE_DIRS})
 
