@@ -1,0 +1,5 @@
+FILE(GLOB_RECURSE PMS_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    )
+
+add_library(pms SHARED ${PMS_SOURCES})

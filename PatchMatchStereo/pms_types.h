@@ -10,6 +10,7 @@
 #include <cstdint>
 #include <limits>
 #include <vector>
+#include <math.h>
 using std::vector;
 using std::pair;
 
@@ -17,41 +18,41 @@ using std::pair;
 #define SAFE_DELETE(P) {if(P) delete[](P);(P)=nullptr;}
 #endif
 
-/** \brief »ù´¡ÀàÐÍ±ðÃû */
-typedef int8_t			sint8;		// ÓÐ·ûºÅ8Î»ÕûÊý
-typedef uint8_t			uint8;		// ÎÞ·ûºÅ8Î»ÕûÊý
-typedef int16_t			sint16;		// ÓÐ·ûºÅ16Î»ÕûÊý
-typedef uint16_t		uint16;		// ÎÞ·ûºÅ16Î»ÕûÊý
-typedef int32_t			sint32;		// ÓÐ·ûºÅ32Î»ÕûÊý
-typedef uint32_t		uint32;		// ÎÞ·ûºÅ32Î»ÕûÊý
-typedef int64_t			sint64;		// ÓÐ·ûºÅ64Î»ÕûÊý
-typedef uint64_t		uint64;		// ÎÞ·ûºÅ64Î»ÕûÊý
-typedef float			float32;	// µ¥¾«¶È¸¡µã
-typedef double			float64;	// Ë«¾«¶È¸¡µã
+/** \brief ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ */
+typedef int8_t			sint8;		// ï¿½Ð·ï¿½ï¿½ï¿½8Î»ï¿½ï¿½ï¿½ï¿½
+typedef uint8_t			uint8;		// ï¿½Þ·ï¿½ï¿½ï¿½8Î»ï¿½ï¿½ï¿½ï¿½
+typedef int16_t			sint16;		// ï¿½Ð·ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½
+typedef uint16_t		uint16;		// ï¿½Þ·ï¿½ï¿½ï¿½16Î»ï¿½ï¿½ï¿½ï¿½
+typedef int32_t			sint32;		// ï¿½Ð·ï¿½ï¿½ï¿½32Î»ï¿½ï¿½ï¿½ï¿½
+typedef uint32_t		uint32;		// ï¿½Þ·ï¿½ï¿½ï¿½32Î»ï¿½ï¿½ï¿½ï¿½
+typedef int64_t			sint64;		// ï¿½Ð·ï¿½ï¿½ï¿½64Î»ï¿½ï¿½ï¿½ï¿½
+typedef uint64_t		uint64;		// ï¿½Þ·ï¿½ï¿½ï¿½64Î»ï¿½ï¿½ï¿½ï¿½
+typedef float			float32;	// ï¿½ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½
+typedef double			float64;	// Ë«ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½
 
-/** \brief float32ÎÞÐ§Öµ */
+/** \brief float32ï¿½ï¿½Ð§Öµ */
 constexpr auto Invalid_Float = std::numeric_limits<float32>::infinity();
 
-/** \brief PMS²ÎÊý½á¹¹Ìå */
+/** \brief PMSï¿½ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ */
 struct PMSOption {
-	sint32	patch_size;			// patch³ß´ç£¬¾Ö²¿´°¿ÚÎª patch_size*patch_size
-	sint32  min_disparity;		// ×îÐ¡ÊÓ²î
-	sint32	max_disparity;		// ×î´óÊÓ²î
+	sint32	patch_size;			// patchï¿½ß´ç£¬ï¿½Ö²ï¿½ï¿½ï¿½ï¿½ï¿½Îª patch_size*patch_size
+	sint32  min_disparity;		// ï¿½ï¿½Ð¡ï¿½Ó²ï¿½
+	sint32	max_disparity;		// ï¿½ï¿½ï¿½ï¿½Ó²ï¿½
 
-	float32	gamma;				// gamma È¨ÖµÒò×Ó
-	float32	alpha;				// alpha ÏàËÆ¶ÈÆ½ºâÒò×Ó
-	float32	tau_col;			// tau for color	ÏàËÆ¶È¼ÆËãÑÕÉ«¿Õ¼äµÄ¾ø¶Ô²îµÄÏÂ½Ø¶ÏãÐÖµ
-	float32	tau_grad;			// tau for gradient ÏàËÆ¶È¼ÆËãÌÝ¶È¿Õ¼äµÄ¾ø¶Ô²îÏÂ½Ø¶ÏãÐÖµ
+	float32	gamma;				// gamma È¨Öµï¿½ï¿½ï¿½ï¿½
+	float32	alpha;				// alpha ï¿½ï¿½ï¿½Æ¶ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	float32	tau_col;			// tau for color	ï¿½ï¿½ï¿½Æ¶È¼ï¿½ï¿½ï¿½ï¿½ï¿½É«ï¿½Õ¼ï¿½Ä¾ï¿½ï¿½Ô²ï¿½ï¿½ï¿½Â½Ø¶ï¿½ï¿½ï¿½Öµ
+	float32	tau_grad;			// tau for gradient ï¿½ï¿½ï¿½Æ¶È¼ï¿½ï¿½ï¿½ï¿½Ý¶È¿Õ¼ï¿½Ä¾ï¿½ï¿½Ô²ï¿½ï¿½Â½Ø¶ï¿½ï¿½ï¿½Öµ
 
-	sint32	num_iters;			// ´«²¥µü´ú´ÎÊý
+	sint32	num_iters;			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	bool	is_check_lr;		// ÊÇ·ñ¼ì²é×óÓÒÒ»ÖÂÐÔ
-	float32	lrcheck_thres;		// ×óÓÒÒ»ÖÂÐÔÔ¼ÊøãÐÖµ
+	bool	is_check_lr;		// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
+	float32	lrcheck_thres;		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Öµ
 
-	bool	is_fill_holes;		// ÊÇ·ñÌî³äÊÓ²î¿Õ¶´
+	bool	is_fill_holes;		// ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Õ¶ï¿½
 
-	bool	is_fource_fpw;		// ÊÇ·ñÇ¿ÖÆÎªFrontal-Parallel Window
-	bool	is_integer_disp;	// ÊÇ·ñÎªÕûÏñËØÊÓ²î
+	bool	is_fource_fpw;		// ï¿½Ç·ï¿½Ç¿ï¿½ï¿½ÎªFrontal-Parallel Window
+	bool	is_integer_disp;	// ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½
 	
 	PMSOption() : patch_size(35), min_disparity(0), max_disparity(64), gamma(10.0f), alpha(0.9f), tau_col(10.0f),
 	              tau_grad(2.0f), num_iters(3),
@@ -61,7 +62,7 @@ struct PMSOption {
 };
 
 /**
- * \brief ÑÕÉ«½á¹¹Ìå
+ * \brief ï¿½ï¿½É«ï¿½á¹¹ï¿½ï¿½
  */
 struct PColor {
 	uint8 r, g, b;
@@ -71,7 +72,7 @@ struct PColor {
 	}
 };
 /**
- * \brief ÌÝ¶È½á¹¹Ìå
+ * \brief ï¿½Ý¶È½á¹¹ï¿½ï¿½
  */
 struct PGradient {
 	sint16 x, y;
@@ -82,7 +83,7 @@ struct PGradient {
 };
 
 /**
-* \brief ¶þÎ¬Ê¸Á¿½á¹¹Ìå
+* \brief ï¿½ï¿½Î¬Ê¸ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
 */
 struct PVector2f {
 
@@ -99,7 +100,7 @@ struct PVector2f {
 		x = v.x; y = v.y;
 	}
 
-	// ¡¤¡¤¡¤operators
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½operators
 	// operator +
 	PVector2f operator+(const PVector2f& v) const {
 		return PVector2f(x + v.x, y + v.y);
@@ -125,7 +126,7 @@ struct PVector2f {
 };
 
 /**
-* \brief ÈýÎ¬Ê¸Á¿½á¹¹Ìå
+* \brief ï¿½ï¿½Î¬Ê¸ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½
 */
 struct PVector3f {
 
@@ -154,7 +155,7 @@ struct PVector3f {
 		}
 	}
 
-	// ¡¤¡¤¡¤operators
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½operators
 	// operator +
 	PVector3f operator+(const PVector3f& v) const {
 		return PVector3f(x + v.x, y + v.y, z + v.z);
@@ -198,7 +199,7 @@ typedef  PVector3f PPoint3f;
 
 
 /**
- * \brief ÊÓ²îÆ½Ãæ
+ * \brief ï¿½Ó²ï¿½Æ½ï¿½ï¿½
  */
 struct DisparityPlane {
 	PVector3f p;
@@ -213,17 +214,17 @@ struct DisparityPlane {
 	}
 
 	/**
-	 * \brief »ñÈ¡¸ÃÆ½ÃæÏÂÏñËØ(x,y)µÄÊÓ²î
-	 * \param x		ÏñËØx×ø±ê
-	 * \param y		ÏñËØy×ø±ê
-	 * \return ÏñËØ(x,y)µÄÊÓ²î
+	 * \brief ï¿½ï¿½È¡ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(x,y)ï¿½ï¿½ï¿½Ó²ï¿½
+	 * \param x		ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½
+	 * \param y		ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+	 * \return ï¿½ï¿½ï¿½ï¿½(x,y)ï¿½ï¿½ï¿½Ó²ï¿½
 	 */
 	float32 to_disparity(const sint32& x,const sint32& y) const
 	{
 		return p.dot(PVector3f(float32(x), float32(y), 1.0f));
 	}
 
-	/** \brief »ñÈ¡Æ½ÃæµÄ·¨Ïß */
+	/** \brief ï¿½ï¿½È¡Æ½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ */
 	PVector3f to_normal() const
 	{
 		PVector3f n(p.x, p.y, -1.0f);
@@ -232,14 +233,14 @@ struct DisparityPlane {
 	}
 
 	/**
-	 * \brief ½«ÊÓ²îÆ½Ãæ×ª»»µ½ÁíÒ»ÊÓÍ¼
-	 * ¼ÙÉè×óÊÓÍ¼Æ½Ãæ·½³ÌÎª d = a_p*xl + b_p*yl + c_p
-	 * ×óÓÒÊÓÍ¼Âú×ã£º(1) xr = xl - d_p; (2) yr = yl; (3) ÊÓ²î·ûºÅÏà·´(±¾´úÂë×óÊÓ²îÎªÕýÖµ£¬ÓÒÊÓ²îÎª¸ºÖµ)
-	 * ´úÈë×óÊÓÍ¼ÊÓ²îÆ½Ãæ·½³Ì¾Í¿ÉµÃµ½ÓÒÊÓÍ¼×ø±êÏµÏÂµÄÆ½Ãæ·½³Ì: d = -a_p*xr - b_p*yr - (c_p+a_p*d_p)
-	 * ÓÒÖÁ×óÍ¬Àí
-	 * \param x		ÏñËØx×ø±ê
-	 * \param y 	ÏñËØy×ø±ê
-	 * \return ×ª»»ºóµÄÆ½Ãæ
+	 * \brief ï¿½ï¿½ï¿½Ó²ï¿½Æ½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í¼
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ½ï¿½æ·½ï¿½ï¿½Îª d = a_p*xl + b_p*yl + c_p
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ã£º(1) xr = xl - d_p; (2) yr = yl; (3) ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½à·´(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Îªï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Îªï¿½ï¿½Öµ)
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½Ó²ï¿½Æ½ï¿½æ·½ï¿½Ì¾Í¿ÉµÃµï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ïµï¿½Âµï¿½Æ½ï¿½æ·½ï¿½ï¿½: d = -a_p*xr - b_p*yr - (c_p+a_p*d_p)
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½
+	 * \param x		ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½
+	 * \param y 	ï¿½ï¿½ï¿½ï¿½yï¿½ï¿½ï¿½ï¿½
+	 * \return ×ªï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½
 	 */
 	DisparityPlane to_another_view(const sint32& x, const sint32& y) const
 	{
